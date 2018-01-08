@@ -1,0 +1,20 @@
+{
+  "name": "haxe-react-media",
+  "description": "CSS media queries for Haxe React.",
+  "version": "0.0.1",
+  "keywords": [
+    "haxe",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kLabz/haxe-react-media"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Rudy G",
+    "email": "k@klabz.org",
+    "url": "https://github.com/kLabz"
+  }
+}
+
