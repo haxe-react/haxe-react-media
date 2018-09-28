@@ -12,7 +12,11 @@ typedef MediaQuery = String;
 
 typedef MediaProps = {
 	var query:MediaQuery;
+	#if react_next
+	var children:EitherType<ReactFragment, Bool->ReactFragment>;
+	#else
 	var children:EitherType<ReactElement, Bool->ReactElement>;
+	#end
 	@:optional var defaultMatches:Bool;
 	@:optional var render:Void->ReactElement;
 }
@@ -21,7 +25,11 @@ typedef MediaState = {
 	var matches:Bool;
 }
 
+#if react_next
+class Media extends ReactComponentOf<MediaProps, MediaState> {
+#else
 class Media extends ReactComponentOfPropsAndState<MediaProps, MediaState> {
+#end
 	static var defaultProps:Partial<MediaProps> = {
 		defaultMatches: true
 	};
