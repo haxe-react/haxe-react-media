@@ -7,16 +7,16 @@ import react.Partial;
 import react.React;
 import react.ReactComponent;
 
+#if !react_next
+typedef ReactFragment = ReactElement;
+#end
+
 // TODO: tools to make typed queries
 typedef MediaQuery = String;
 
 typedef MediaProps = {
 	var query:MediaQuery;
-	#if react_next
 	var children:EitherType<ReactFragment, Bool->ReactFragment>;
-	#else
-	var children:EitherType<ReactElement, Bool->ReactElement>;
-	#end
 	@:optional var defaultMatches:Bool;
 	@:optional var render:Void->ReactElement;
 }
@@ -41,7 +41,7 @@ class Media extends ReactComponentOfPropsAndState<MediaProps, MediaState> {
 		state = {matches: props.defaultMatches};
 	}
 
-	override public function render() {
+	override public function render():ReactFragment {
 		if (props.render != null) {
 			if (!state.matches) return null;
 			return props.render();

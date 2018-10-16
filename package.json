@@ -1,7 +1,7 @@
 {
   "name": "haxe-react-media",
   "description": "CSS media queries for Haxe React.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "keywords": [
     "haxe",
     "react"
