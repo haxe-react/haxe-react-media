@@ -1,8 +1,8 @@
 {
   "name": "react-media",
   "description": "CSS media queries for Haxe React.",
-  "version": "0.0.3",
-  "releasenote": "Fix for react-next.",
+  "version": "0.1.0",
+  "releasenote": "Added onChange + update for deprecated react component lifecycle",
   "url": "https://github.com/kLabz/haxe-react-media",
   "license": "MIT",
   "tags": [

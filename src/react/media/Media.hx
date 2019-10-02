@@ -15,8 +15,9 @@ typedef ReactFragment = ReactElement;
 typedef MediaQuery = String;
 
 typedef MediaProps = {
-	var query:MediaQuery;
-	var children:EitherType<ReactFragment, Bool->ReactFragment>;
+	@:optional var children:EitherType<ReactFragment, Bool->ReactFragment>;
+	@:optional var query:MediaQuery;
+	@:optional var onChange:Bool->Void;
 	@:optional var defaultMatches:Bool;
 	@:optional var render:Void->ReactElement;
 }
@@ -38,7 +39,12 @@ class Media extends ReactComponentOfPropsAndState<MediaProps, MediaState> {
 
 	public function new(props:MediaProps) {
 		super(props);
-		state = {matches: props.defaultMatches};
+
+		mediaQueryList = Browser.window.matchMedia(props.query);
+
+		state = {
+			matches: props.defaultMatches == null ? mediaQueryList.matches : props.defaultMatches
+		};
 	}
 
 	override public function render():ReactFragment {
@@ -56,8 +62,7 @@ class Media extends ReactComponentOfPropsAndState<MediaProps, MediaState> {
 		return React.Children.only(props.children);
 	}
 
-	override function componentWillMount() {
-		mediaQueryList = Browser.window.matchMedia(props.query);
+	override function componentDidMount() {
 		mediaQueryList.addListener(updateMatches);
 		updateMatches(null);
 	}
@@ -67,7 +72,11 @@ class Media extends ReactComponentOfPropsAndState<MediaProps, MediaState> {
 	}
 
 	function updateMatches(_) {
-		setState({matches: mediaQueryList.matches});
+		setState({matches: mediaQueryList.matches}, function() {
+			if (props.onChange != null) {
+				props.onChange(state.matches);
+			}
+		});
 	}
 }
 
